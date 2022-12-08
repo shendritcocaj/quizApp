@@ -13,25 +13,22 @@ const Question = ({
   setScore,
 }) => {
   const handleClick = (isCorrect) => {
-    if (questionIndex <= 9) {
+    if (questionIndex < 9) {
       if (isCorrect) {
         setScore((score) => (score += 1));
       }
-    }
-  };
-  const handleNextClick = () => {
-    if (questionIndex < 9) {
+
       setQuestionIndex((prevIndex) => prevIndex + 1);
     } else {
+      if (isCorrect) {
+        setScore((score) => (score += 1));
+      }
+
       setShowQuestionsPage(false);
       setShowFinalPage(true);
     }
   };
 
-  const handleresultClick = () => {
-    setShowQuestionsPage(false);
-    setShowFinalPage(true);
-  };
   return (
     <Card>
       <h1 className="question">{questions[questionIndex].questionText}</h1>
@@ -46,14 +43,6 @@ const Question = ({
             <p>{answer.answerText}</p>
           </div>
         ))}
-      </div>
-      <div className="question_result">
-        <button className="next_question_btn" onClick={handleNextClick}>
-          Next
-        </button>
-        <button className="next_question_btn" onClick={handleresultClick}>
-          Result
-        </button>
       </div>
 
       <p className="score">
